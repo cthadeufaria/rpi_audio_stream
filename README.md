@@ -1,119 +1,80 @@
 # rpi_audio_stream
 
-# Sprints?
+A Raspberry Pi–based audio streaming system with a PC server and multiple Raspberry Pi Zero 2 WH clients. The project enables music playback, white noise generation, and microphone priority handling, with communication over UDP.  
 
-# Project development steps/tasks
-# Hardware requirements gathering 6-8
-# Client
-    MAX98357A  2EUR
-    Raspberry Pi Zero 2 WH 19EUR
-        estimate client ram needs
-    Rpi box 6EUR
-    battery connection 20EUR
-        or common power supply - 10EUR
-    if we have to connect to wifi, then lcd display 15EUR
-    SD card 32GB 5EUR
-# Server is pc
+---
 
-# Communication protocol setup 10-12
-    implement communications protocol connections and callbacks [ok]
-    handle real scenario connection and setup
-        dynamic connection using udp [ONGOING]
+## 📋 Overview
 
-# Server/Client development 15-18 + 12-15
-    implement core classes [ok]
-    implement assynchronous handling of connections/inputs/outputs [ok]
-    implement song selection for music [ok]
-    implement white noise treatment
-    handle microphone priority [ONGOING]
-    handle real scenario connection and setup 
-        handle errors and reconnection gracefully [ONGOING]
-    Handle messages to specific addresses or groups [ONGOING]
+This project implements a server-client audio streaming system where:  
+- **Server** runs on a PC, controlling playback, device management, and group messaging.  
+- **Clients** are Raspberry Pi Zero 2 WH devices equipped with audio hardware, capable of playing music, white noise, or microphone audio.  
 
-# UI/Control Interface	6-8
-    ui for server user on tkinter [ONGOING]
-        3 button for controlling playbacks
-        buttons status
-        wifi connection
-        wifi status
-        print important messages for user
-        selection for broadcast or message to specific address or group
+Communication is handled over UDP, with support for broadcast and targeted messages.  
 
-# RPi Environment Setup	5-6
-    install rpi operational system
-    install rpi client software
-        automate set up and initialization configuration
-    create installation binary for server
-        run on pc
-    how to cryptograph so the software binary will not be decompiled?
+---
 
-# Testing and Debugging	10-12
+## 🔧 Hardware Requirements
 
-# Documentation and Training	5-7
+### Client Hardware
+| Component                            | Cost (EUR) |
+|--------------------------------------|------------|
+| Raspberry Pi Zero 2 WH               | 19         |
+| MAX98357A Audio Amplifier            | 2          |
+| RPi enclosure                        | 6          |
+| Power supply / Battery connection    | 20 (Battery) / 10 (Common PSU) |
+| Optional LCD (for WiFi status/config)| 15         |
+| microSD Card (32GB)                  | 5          |
 
+**Estimated client RAM requirements:** *TBD based on software footprint.*
 
-## Questions I need to answer:
-How to select songs?
-How to handle multiple microfones at the same time?
-How to select specific client on gui?
-    When client connects, warn on gui and select its group str.
+**Server Hardware:**  
+- Standard PC (runs the server application)
 
-# Backlog
-Requirements Gathering	6-8
-2 microfones
-DAC pro or DAC+? https://www.raspberrypi.com/documentation/accessories/audio.html#overview
-if there's a power break, battery needed
+---
 
-Communication Protocol Setup	10-12
-what protocol for (mp3 playing and breaking sound) or (orders to send to play the sounds saved on rpi)
-	quality for music and clear for speech
-	address a specific client for streaming
-    Answer: UDP for voice and websockets for play instructions !!!
-    Answer: Set up WireGuard for connection between private networks
+## 📡 Communication Protocol
 
-UI/Control Interface	6-8
-ui for server user - tkinter
-server must select broadcast or specific address or group
+**Goal:** Dynamic UDP-based communication between server and clients.  
+- ✅ Protocol connections & callbacks implemented  
+- 🔄 Dynamic connection setup in real scenarios (**Ongoing**)  
 
-RPi Environment Setup	5-6
-connect with Wireguard
-how to protect so not to be decompiled the software?
+---
 
-Server/Client Development	15-18 + 12-15
-class diagram
-class implementation
-    servers:
-        1 head master 
-        1 secreteary
-    server needs to broadcast live streaming mp3 files to evreyone
-    server should play breaking sound (siren or something more enjoyable)
-    server must send microfone audio to everyone or to specific client
-    clients must listen anything addressed to them
+## 🛠 Development Roadmap
 
+### **Server & Client Development**  
+- ✅ Implement core classes  
+- ✅ Asynchronous handling of connections, inputs, outputs  
+- ✅ Song selection for music playback  
+- ✅ White noise treatment (*basic*)  
+- 🔄 Microphone priority handling  
+- 🔄 Real scenario connection setup (error handling & graceful reconnections)  
+- 🔄 Message routing to specific addresses or groups  
 
-Testing and Debugging	10-12
+### **UI / Control Interface**  
+- **Server UI** (Tkinter-based) – *Ongoing*  
+  - Control playback (3 buttons)  
+  - Show button status  
+  - Manage WiFi connection & status  
+  - Display important system messages  
+  - Select between broadcast or targeted messages  
 
-Documentation and Training	5-7
+### **RPi Environment Setup**  
+- Install Raspberry Pi OS  
+- Install & configure RPi client software  
+  - Automate setup & initialization  
+- Create installation binary for server (PC)  
+- **Security consideration:** Evaluate cryptographic protection to prevent binary reverse engineering  
 
+---
 
-# TODO: answer following Manesh questions 
-- UPDATE BACKLOG []
+## 🚀 Installation
 
-!!!!!!
-- deliver first test [ ]
-    - make static ip solution for one simple client server implementation
-!!!!!!
+### **Server**
+```bash
+# Clone the repository
+git clone https://github.com/<your-username>/rpi_audio_stream.git
+cd rpi_audio_stream/server
 
-
-####
-- check MQTT feasibility for voice [ok]
-	- 384 Kbit/s is minimum voice quality []
-	- check how to implement mesh network qith MQTT
-	- check maximum distance on wifi ad-hoc for mqtt physical layer / if wifi not good than other options
-- send products to buy already listed [ok]
-- search dac for the pi 5 [ok]
-	- write explanation about i2s interface [ok]
-- check sd card compatibility [ok]
-- deliver first sprint [ok]
-	- do simple gui with button [ok]
-	- play bell ring message [ok]
+# (Instructions to build & run server binary here)
